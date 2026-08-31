@@ -153,7 +153,7 @@ header {
 
     font-size: 18px;
 
-    max-width: 550px;
+    max-width: 550px; 
 
     margin-bottom: 35px;
 }
@@ -184,8 +184,8 @@ header {
 .primary-btn:hover {
     background: #6847ef;
 
-    transform: translateY(-2px);
-}
+    transform: translateY(-2px); /*Moves the button 2px upward when hovered.*/
+} 
 
 
 .secondary-btn {
@@ -226,9 +226,13 @@ header {
 
     border-radius: 20px;
 
-    overflow: hidden;
+    overflow: hidden; /*If anything inside the video window goes outside its boundaries, it gets clipped/hidden.*/
 
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); /*
+    0     → horizontal offset
+30px  → vertical offset
+80px  → blur
+rgba  → shadow color + transparency*/
 }
 
 
