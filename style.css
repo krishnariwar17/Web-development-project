@@ -102,7 +102,7 @@ header {
 
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* create 2 column with one column of fraction space */
 
     gap: 70px;
 
@@ -141,7 +141,10 @@ header {
 .hero h1 span,
 .page-hero h1 span,
 .section-heading h2 span {
-    color: #8a6cff;
+    color: #8a6cff; /* Group selectors used for give same property to different elements
+    <span> is an inline HTML element used to target or style a small part 
+    of text or content without creating a new line.
+    */
 }
 
 
