@@ -677,9 +677,7 @@ footer {
 }
 
 
-/* =========================
-   TERMS
-========================= */
+
 
 .terms-container {
     max-width: 900px;
@@ -727,12 +725,10 @@ footer {
 }
 
 
-/* =========================
-   LOGIN
-========================= */
+
 
 .login-page {
-    min-height: 100vh;
+    min-height: 100vh; /*  100vh = 100% of the browser window's height */
 
     background:
         radial-gradient(
@@ -885,7 +881,7 @@ footer {
 
     font-weight: 700;
 
-    cursor: pointer;
+    cursor: pointer; /* Change the mouse cursor to a hand when the user hovers over the element. */
 }
 
 
