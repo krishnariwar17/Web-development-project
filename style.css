@@ -973,11 +973,9 @@ footer {
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
 
-@media (max-width: 900px) {
+
+@media (max-width: 900px) { /* @media is used to make a website responsive.*/
 
     .hero {
         grid-template-columns: 1fr;
@@ -1052,7 +1050,7 @@ footer {
     .features,
     .values,
     .about-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Create only 1 column that takes the full available width. */
     }
 
 
