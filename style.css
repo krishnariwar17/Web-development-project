@@ -241,7 +241,8 @@ rgba  → shadow color + transparency*/
 
     display: flex;
 
-    justify-content: space-between;
+    justify-content: space-between; /* Put the first item at the start, the 
+    last item at the end, and distribute equal space between the items.*/
 
     align-items: center;
 
