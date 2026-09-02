@@ -389,9 +389,7 @@ rgba  → shadow color + transparency*/
 }
 
 
-/* =========================
-   STEPS
-========================= */
+
 
 .steps {
     display: grid;
@@ -437,9 +435,7 @@ rgba  → shadow color + transparency*/
 }
 
 
-/* =========================
-   FEATURES
-========================= */
+
 
 .features {
     display: grid;
@@ -514,9 +510,7 @@ rgba  → shadow color + transparency*/
 }
 
 
-/* =========================
-   FOOTER
-========================= */
+
 
 footer {
     border-top: 1px solid #222228;
@@ -546,7 +540,7 @@ footer {
 
 
 .footer-links {
-    display: flex;
+    display: flex;  /* elect the <a> (link) elements inside .footer-links. */
 
     gap: 25px;
 
@@ -576,9 +570,7 @@ footer {
 }
 
 
-/* =========================
-   PAGE HERO
-========================= */
+
 
 .page-hero {
     max-width: 850px;
