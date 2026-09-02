@@ -396,7 +396,8 @@ rgba  → shadow color + transparency*/
 .steps {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* Create 3 columns, and give each column 1
+    equal fraction of the available space.*/
 
     gap: 20px;
 }
