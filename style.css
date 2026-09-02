@@ -274,7 +274,7 @@ rgba  → shadow color + transparency*/
 
     background:
         radial-gradient(
-            circle at center,
+            circle at center, /* means the gradient is circular and starts from the center. */
             #252338,
             #111116
         );
