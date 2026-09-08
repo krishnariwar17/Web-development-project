@@ -243,7 +243,10 @@ nav a.active {
     font-family: "Outfit", sans-serif;
     font-size: 48px;
     background: linear-gradient(to right, #6366f1, #06b6d4);
+    background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 
 .stat p {
