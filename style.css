@@ -1,4 +1,4 @@
-/* ---------- BASIC ---------- */
+
 * {
     margin: 0;
     padding: 0;
@@ -103,7 +103,6 @@ nav a.active {
     font-size: 14px;
 }
 
-/* ---------- HOME ---------- */
 .hero {
     min-height: 660px;
     padding: 80px;
@@ -427,7 +426,6 @@ nav a.active {
     color: #453d68;
 }
 
-/* ---------- TERMS ---------- */
 .terms-header {
     padding: 80px;
     background: white;
@@ -484,7 +482,6 @@ nav a.active {
     line-height: 1.7;
 }
 
-/* ---------- LOGIN ---------- */
 .login-page {
     padding: 80px;
 }
@@ -603,7 +600,7 @@ nav a.active {
     font-weight: bold;
 }
 
-/* ---------- FOOTER ---------- */
+
 footer {
     background: #191235;
     color: white;
@@ -669,7 +666,7 @@ footer {
     font-size: 14px;
 }
 
-/* ---------- MOBILE ---------- */
+
 @media (max-width: 900px) {
     .navbar {
         padding: 20px 30px;
