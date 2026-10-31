@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Yappo - Complete Your Profile</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .profile-page {
+            min-height: 75vh;
+            padding: 60px 20px;
+            background: #f7f5ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-card {
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            background: white;
+            border: 1px solid #e6e0f5;
+            border-radius: 22px;
+            box-shadow: 0 12px 35px rgba(35, 24, 75, 0.08);
+        }
+
+        .profile-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 18px;
+            border-radius: 18px;
+            background: linear-gradient(120deg, #6755f5, #08b8d5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .profile-heading h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            color: #191536;
+            margin-bottom: 10px;
+        }
+
+        .profile-heading p {
+            color: #77718e;
+            line-height: 1.6;
+        }
+
+        .profile-group {
+            margin-bottom: 22px;
+        }
+
+        .profile-group > label,
+        .group-title {
+            display: block;
+            margin-bottom: 9px;
+            font-weight: 600;
+            color: #24203e;
+        }
+
+        .profile-group input[type="text"],
+        .profile-group input[type="number"],
+        .profile-group select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            border: 1px solid #dcd7eb;
+            border-radius: 10px;
+            font: inherit;
+            background: white;
+            color: #24203e;
+        }
+
+        .profile-group input:focus,
+        .profile-group select:focus {
+            outline: 2px solid #8172fa;
+            border-color: transparent;
+        }
+
+        .profile-hobbies {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .hobby-option {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px;
+            border: 1px solid #e3def1;
+            border-radius: 10px;
+            color: #39334f;
+            cursor: pointer;
+        }
+
+        .hobby-option:has(input:checked) {
+            background: #f0eeff;
+            border-color: #8172fa;
+        }
+
+        .hobby-option input {
+            accent-color: #6755f5;
+            width: 16px;
+            height: 16px;
+        }
+
+        .profile-note {
+            margin-top: 7px;
+            color: #817b96;
+            font-size: 13px;
+        }
+
+        .profile-submit {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 11px;
+            background: linear-gradient(110deg, #6755f5, #08b8d5);
+            color: white;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .profile-submit:hover {
+            opacity: 0.92;
+        }
+
+        .profile-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #profileMessage {
+            margin-top: 16px;
+            text-align: center;
+            color: #554b7c;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        @media (max-width: 600px) {
+            .profile-page {
+                padding: 30px 14px;
+            }
+
+            .profile-card {
+                padding: 25px 20px;
+            }
+
+            .profile-heading h1 {
+                font-size: 27px;
+            }
+
+            .profile-hobbies {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="logo">
+            <div class="logo-icon">💬</div>
+            <h2>Yappo</h2>
+        </div>
+
+        <button type="button" id="logoutButton" class="nav-button">
+            Log Out
+        </button>
+    </header>
+
+    <!-- Profile form -->
+    <main class="profile-page">
+
+        <section class="profile-card">
+
+            <div class="profile-heading">
+                <div class="profile-icon">👋</div>
+
+                <h1>Let's get to know you!</h1>
+
+                <p>
+                    Set up your profile before you start meeting
+                    new people on Yappo.
+                </p>
+            </div>
+
+            <form id="profileForm">
+
+                <!-- Username -->
+                <div class="profile-group">
+                    <label for="username">What should we call you?</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        minlength="2"
+                        maxlength="30"
+                        autocomplete="nickname"
+                        required
+                    >
+                </div>
+
+                <!-- Age -->
+                <div class="profile-group">
+                    <label for="age">How old are you?</label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        placeholder="Enter your age"
+                        min="18"
+                        max="120"
+                        step="1"
+                        required
+                    >
+
+                    <p class="profile-note">
+                        You must be at least 18 to use Yappo.
+                    </p>
+                </div>
+
+                <!-- Gender -->
+                <div class="profile-group">
+                    <label for="gender">Choose your gender</label>
+
+                    <select id="gender" name="gender" required>
+                        <option value="">Select an option</option>
+                        <option value="Man">Man</option>
+                        <option value="Woman">Woman</option>
+                        <option value="Non-binary">Non-binary</option>
+                        <option value="Prefer not to say">
+                            Prefer not to say
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Hobbies -->
+                <div class="profile-group">
+
+                    <span class="group-title">
+                        What are you interested in?
+                    </span>
+
+                    <p class="profile-note">
+                        Select at least one hobby.
+                    </p>
+
+                    <div class="profile-hobbies">
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Music">
+                            🎵 Music
+                        </label>
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Gaming">
+                            🎮 Gaming
+                        </label>
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Movies">
+                            🎬 Movies
+                        </label>
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Travel">
+                            ✈️ Travel
+                        </label>
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Sports">
+                            ⚽ Sports
+                        </label>
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Technology">
+                            💻 Technology
+                        </label>
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Fitness">
+                            🏋️ Fitness
+                        </label>
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Reading">
+                            📚 Reading
+                        </label>
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Art">
+                            🎨 Art
+                        </label>
+
+                        <label class="hobby-option">
+                            <input type="checkbox" name="hobby"
+                                   value="Other">
+                            ✨ Other
+                        </label>
+
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    id="saveProfile"
+                    class="profile-submit"
+                >
+                    Complete Profile
+                </button>
+
+                <p
+                    id="profileMessage"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-bottom">
+            <p>© 2026 Yappo. Made with ❤️ for real connections.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase profile logic -->
+    <script type="module" src="profile.js"></script>
+
+</body>
+</html>

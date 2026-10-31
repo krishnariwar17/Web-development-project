@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yappo - Settings</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background: #1d1d20;
+            color: #f4f4f7;
+        }
+
+        .settings-layout {
+            max-width: 1250px;
+            min-height: 650px;
+            margin: 35px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 290px 1fr;
+        }
+
+        .settings-menu,
+        .settings-content {
+            background: #191a1d;
+            border: 1px solid #2d3038;
+            padding: 30px;
+        }
+
+        .settings-menu {
+            border-radius: 20px 0 0 20px;
+        }
+
+        .settings-content {
+            border-radius: 0 20px 20px 0;
+        }
+
+        .settings-menu h2,
+        .settings-content h1 {
+            margin-bottom: 25px;
+        }
+
+        .settings-menu button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            color: #a9adba;
+            padding: 16px 12px;
+            border-radius: 10px;
+            font: inherit;
+            cursor: pointer;
+            border: 0;
+            margin-bottom: 5px;
+        }
+
+        .settings-menu button:hover,
+        .settings-menu button.active {
+            color: white;
+            background: #292b32;
+        }
+
+        .setting-panel {
+            display: none;
+            max-width: 700px;
+        }
+
+        .setting-panel.active {
+            display: block;
+        }
+
+        .setting-panel h2 {
+            margin-bottom: 18px;
+        }
+
+        .setting-panel p {
+            color: #a9adba;
+            line-height: 1.8;
+            margin: 12px 0;
+        }
+
+        .setting-panel label {
+            display: block;
+            margin: 20px 0 8px;
+        }
+
+        .setting-panel input,
+        .setting-panel select,
+        .setting-panel textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #383b45;
+            border-radius: 9px;
+            background: #222329;
+            color: white;
+            font: inherit;
+        }
+
+        .setting-panel input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .save-button,
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: 0;
+            border-radius: 10px;
+            background: linear-gradient(110deg, #6755f5, #08b8d5);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .setting-message {
+            margin-top: 15px;
+        }
+
+        @media (max-width: 700px) {
+            .settings-layout {
+                grid-template-columns: 1fr;
+                margin: 15px auto;
+                padding: 0 12px;
+            }
+
+            .settings-menu {
+                border-radius: 15px 15px 0 0;
+            }
+
+            .settings-content {
+                border-radius: 0 0 15px 15px;
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <div class="logo-icon">💬</div>
+            <h2>Yappo</h2>
+        </div>
+        <a href="dashboard.html" class="nav-button">Back to Dashboard</a>
+    </header>
+
+    <main class="settings-layout">
+        <aside class="settings-menu">
+            <h2>← Settings</h2>
+            <button class="active" data-panel="account">👤 Account</button>
+            <button data-panel="preferences">⚙️ Preferences</button>
+            <button data-panel="rules">📖 Community Rules</button>
+            <button data-panel="faq">💬 FAQ</button>
+            <button data-panel="privacy">🔒 Terms & Privacy</button>
+            <button data-panel="contact">✉️ Contact Us</button>
+            <button id="logoutButton">↪ Sign Out</button>
+        </aside>
+
+        <section class="settings-content">
+
+            <div id="account" class="setting-panel active">
+                <h1>Account</h1>
+                <p>Your Yappo account information.</p>
+
+                <p><strong>Username:</strong> <span id="accountName">Loading...</span></p>
+                <p><strong>Email:</strong> <span id="accountEmail">Loading...</span></p>
+                <p><strong>Age:</strong> <span id="accountAge">—</span></p>
+                <p><strong>Gender:</strong> <span id="accountGender">—</span></p>
+                <p><strong>Hobbies:</strong> <span id="accountHobbies">—</span></p>
+
+                <a href="profile.html" class="back-button">Edit Profile</a>
+                <p id="accountMessage" class="setting-message" role="status"></p>
+            </div>
+
+            <div id="preferences" class="setting-panel">
+                <h1>Chat Preferences</h1>
+                <p>Choose how you would like to use Yappo.</p>
+
+                <label for="language">Preferred language</label>
+                <select id="language">
+                    <option>English</option>
+                    <option>Hindi</option>
+                    <option>Spanish</option>
+                    <option>French</option>
+                </select>
+
+                <label for="matchGender">Preferred match</label>
+                <select id="matchGender">
+                    <option value="everyone">Everyone</option>
+                    <option value="men">Men</option>
+                    <option value="women">Women</option>
+                </select>
+
+                <label>
+                    <input type="checkbox" id="cameraPreference">
+                    Ask to turn on my camera before chatting
+                </label>
+
+                <button id="savePreferences" class="save-button">Save Preferences</button>
+                <p id="preferencesMessage" class="setting-message" role="status"></p>
+            </div>
+
+            <div id="rules" class="setting-panel">
+                <h1>Community Rules</h1>
+                <p>Help keep Yappo safe and respectful.</p>
+                <p>• Treat other users with respect.</p>
+                <p>• Do not harass, threaten, or bully anyone.</p>
+                <p>• Never share passwords, verification codes, or financial details.</p>
+                <p>• Do not record or share another person's video without their consent.</p>
+                <p>• End the chat if you feel uncomfortable.</p>
+                <p>• Report abuse when reporting features become available.</p>
+            </div>
+
+            <div id="faq" class="setting-panel">
+                <h1>Frequently Asked Questions</h1>
+
+                <h3>How do I start chatting?</h3>
+                <p>Open the dashboard and select Start Chat. Live matching must be enabled for another user to connect.</p>
+
+                <h3>How do I change my profile?</h3>
+                <p>Open Account and select Edit Profile.</p>
+
+                <h3>How do I log out?</h3>
+                <p>Choose Sign Out in this menu or use the dashboard's logout button.</p>
+
+                <h3>Why can't I see another person?</h3>
+                <p>The current dashboard supports a local camera preview. Real-time connections require a video-matching system.</p>
+            </div>
+
+            <div id="privacy" class="setting-panel">
+                <h1>Terms & Privacy</h1>
+                <p>Yappo should be used responsibly and respectfully.</p>
+                <p>Your account profile is stored in Firebase. Only the authenticated account owner should be able to access or modify their saved profile.</p>
+                <p>Do not share another user's personal information or record conversations without their permission.</p>
+                <p>Before launching publicly, publish complete Terms of Service and a Privacy Policy explaining data collection, retention, moderation, and deletion.</p>
+
+                <a href="terms.html" class="back-button">Read Terms of Service</a>
+            </div>
+
+            <div id="contact" class="setting-panel">
+                <h1>Contact Us</h1>
+                <p>Have a question or feedback about Yappo?</p>
+
+                <label for="contactMessage">Your message</label>
+                <textarea id="contactMessage" rows="5"
+                    placeholder="Write your feedback here..."></textarea>
+
+                <button id="sendFeedback" class="save-button">Prepare Email</button>
+                <p id="contactStatus" class="setting-message" role="status"></p>
+            </div>
+
+        </section>
+    </main>
+
+    <script type="module" src="settings.js"></script>
+</body>
+</html>

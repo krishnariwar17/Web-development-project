@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#191a1c">
+
+    <title>Yappo - Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./dashboard.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <a href="index.html" class="brand" aria-label="Yappo home">
+            <span class="brand-icon">💬</span>
+            <span>Yappo</span>
+        </a>
+
+        <div class="nav-actions">
+            <span id="navUsername" class="nav-username">Loading account...</span>
+            <a href="settings.html" class="button button-primary">⚙ Settings</a>
+            <button id="logoutButton" class="button button-dark" type="button">
+                Log Out
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="welcome-section">
+            <div>
+                <p class="eyebrow">YOUR SPACE TO CONNECT</p>
+                <h1>Welcome to Yappo! <span class="wave">👋</span></h1>
+                <p class="subtitle">Meet new people and enjoy conversations.</p>
+                <p id="accountInfo" class="account-info">Loading account...</p>
+            </div>
+
+            <div class="online-badge">
+                <span class="status-dot"></span>
+                Your dashboard
+            </div>
+        </section>
+
+        <section class="video-grid" aria-label="Video chat">
+            <article class="video-card">
+                <div class="video-heading">
+                    <div>
+                        <p class="video-label">YOUR CAMERA</p>
+                        <p class="video-description">Your video preview</p>
+                    </div>
+                    <span id="cameraStatus" class="status-pill">Camera off</span>
+                </div>
+
+                <div class="video-screen" id="localVideoContainer">
+                    <video
+                        id="localVideo"
+                        autoplay
+                        playsinline
+                        muted
+                        hidden
+                    ></video>
+
+                    <div id="cameraPlaceholder" class="video-placeholder">
+                        <span class="placeholder-icon">📹</span>
+                        <h2>Your camera preview will appear here.</h2>
+                        <p>Turn on your camera when you're ready.</p>
+                    </div>
+                </div>
+
+                <div class="video-footer">
+                    <span id="cameraFooterStatus">Camera is off</span>
+                    <span class="privacy-note">🔒 Your preview stays on this device</span>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <div class="video-heading">
+                    <div>
+                        <p class="video-label">YOUR NEXT CONNECTION</p>
+                        <p class="video-description">Meet someone new</p>
+                    </div>
+                    <span id="partnerStatus" class="status-pill">Not connected</span>
+                </div>
+
+                <div class="video-screen" id="remoteVideoContainer">
+                    <video
+                        id="remoteVideo"
+                        autoplay
+                        playsinline
+                        hidden
+                    ></video>
+
+                    <div id="strangerPlaceholder" class="video-placeholder">
+                        <span class="placeholder-icon">🌐</span>
+                        <h2 id="strangerHeading">Your next conversation starts here.</h2>
+                        <p id="strangerMessage">
+                            Start a chat when you're ready to connect.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="video-footer">
+                    <span id="connectionStatus">Ready to start</span>
+                    <span class="privacy-note">Be respectful. Stay safe.</span>
+                </div>
+            </article>
+        </section>
+
+        <section class="controls-section" aria-label="Video controls">
+            <div class="controls">
+                <button id="cameraButton" class="button control-button" type="button">
+                    📹 Turn Camera On
+                </button>
+
+                <button id="micButton" class="button control-button" type="button" aria-pressed="false">
+                    🎙 Turn Mic On
+                </button>
+
+                <button id="startChatButton" class="button button-primary" type="button">
+                    Start Chat
+                </button>
+
+                <button id="nextButton" class="button control-button" type="button" disabled>
+                    Next
+                </button>
+
+                <button id="endChatButton" class="button button-danger" type="button" disabled>
+                    End Chat
+                </button>
+            </div>
+
+            <p id="dashboardMessage" class="dashboard-message" role="status" aria-live="polite">
+                Turn on your camera and microphone when you're ready.
+            </p>
+        </section>
+
+        <section class="info-card">
+            <div class="info-icon">✨</div>
+            <div>
+                <h3>Make yourself at home</h3>
+                <p>Keep your profile updated and connect with people who share your interests.</p>
+            </div>
+            <a href="settings.html" class="text-link">Your profile →</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span class="footer-brand">💬 Yappo</span>
+        <span>Made with ❤️ by the Yappo team.</span>
+        <span>Connect. Converse. Repeat.</span>
+    </footer>
+
+    <script type="module" src="./dashboard.js"></script>
+</body>
+</html>

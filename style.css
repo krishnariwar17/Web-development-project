@@ -1,4 +1,4 @@
-
+/* ---------- BASIC ---------- */
 * {
     margin: 0;
     padding: 0;
@@ -103,6 +103,7 @@ nav a.active {
     font-size: 14px;
 }
 
+/* ---------- HOME ---------- */
 .hero {
     min-height: 660px;
     padding: 80px;
@@ -287,7 +288,7 @@ nav a.active {
     font-family: "Outfit", sans-serif;
     font-size: 64px;
     font-weight: 800;
-    color: blue;
+    color: rgba(217, 209, 242, 0.6);
     margin-bottom: 20px;
 }
 
@@ -426,6 +427,7 @@ nav a.active {
     color: #453d68;
 }
 
+/* ---------- TERMS ---------- */
 .terms-header {
     padding: 80px;
     background: white;
@@ -482,6 +484,7 @@ nav a.active {
     line-height: 1.7;
 }
 
+/* ---------- LOGIN ---------- */
 .login-page {
     padding: 80px;
 }
@@ -600,7 +603,7 @@ nav a.active {
     font-weight: bold;
 }
 
-
+/* ---------- FOOTER ---------- */
 footer {
     background: #191235;
     color: white;
@@ -666,7 +669,7 @@ footer {
     font-size: 14px;
 }
 
-
+/* ---------- MOBILE ---------- */
 @media (max-width: 900px) {
     .navbar {
         padding: 20px 30px;
@@ -739,4 +742,375 @@ footer {
         flex-direction: column;
         gap: 20px;
     }
+}
+
+
+/* ===== YAPPO DASHBOARD ===== */
+
+.dashboard-welcome {
+    max-width: 1200px;
+    margin: 40px auto 25px;
+    padding: 0 24px;
+}
+
+.dashboard-welcome h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 36px;
+    color: #191536;
+    margin-bottom: 10px;
+}
+
+.dashboard-welcome p {
+    color: #77748f;
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+#userEmail {
+    font-size: 14px;
+}
+
+/* Video panels */
+
+.video-chat {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.video-box {
+    position: relative;
+    min-height: 320px;
+    background: #19152f;
+    border-radius: 20px;
+    padding: 24px;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(30, 20, 70, 0.12);
+}
+
+.video-box h3 {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    font-size: 16px;
+    z-index: 2;
+}
+
+.video-box p {
+    color: #d2cdeb;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 280px;
+}
+
+.video-box video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#localVideo {
+    transform: scaleX(-1);
+}
+
+/* Keep video labels and messages visible */
+
+.video-box h3,
+.video-box p {
+    z-index: 1;
+}
+
+.video-box video:not([hidden]) ~ p {
+    display: none;
+}
+
+/* Buttons */
+
+.chat-controls {
+    max-width: 1200px;
+    margin: 25px auto 40px;
+    padding: 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.chat-controls button {
+    border: none;
+    border-radius: 12px;
+    padding: 14px 22px;
+    background: #eeeafd;
+    color: #30265e;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.chat-controls button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: #ded8ff;
+}
+
+.chat-controls #startChatButton {
+    color: white;
+    background: linear-gradient(110deg, #6755f5, #08b8d5);
+}
+
+.chat-controls #startChatButton:hover {
+    background: linear-gradient(110deg, #5541e9, #079bb8);
+}
+
+.chat-controls #endChatButton {
+    color: #c83d56;
+    background: #fff0f2;
+}
+
+.chat-controls button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+#statusMessage {
+    max-width: 700px;
+    margin: 0 auto 30px;
+    padding: 0 20px;
+    text-align: center;
+    color: #6755f5;
+    line-height: 1.6;
+}
+
+/* Dashboard navigation */
+
+.navbar > div:last-child {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#logoutButton {
+    padding: 10px 18px;
+    border: 1px solid #e5e0f2;
+    border-radius: 10px;
+    background: white;
+    color: #6755f5;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#logoutButton:hover {
+    background: #f3f0ff;
+}
+
+/* Dashboard footer */
+
+body > footer {
+    margin-top: 50px;
+    padding: 25px 20px;
+    background: #19122f;
+    color: white;
+    text-align: center;
+}
+
+body > footer p {
+    margin: 0;
+}
+
+/* Mobile layout */
+
+@media (max-width: 700px) {
+    .dashboard-welcome {
+        margin-top: 28px;
+        padding: 0 18px;
+    }
+
+    .dashboard-welcome h1 {
+        font-size: 28px;
+    }
+
+    .video-chat {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+        gap: 18px;
+    }
+
+    .video-box {
+        min-height: 260px;
+    }
+
+    .chat-controls {
+        padding: 0 16px;
+        gap: 10px;
+    }
+
+    .chat-controls button {
+        flex: 1 1 130px;
+        padding: 13px 10px;
+    }
+
+    .navbar {
+        padding: 15px 18px;
+        gap: 12px;
+    }
+
+    .navbar > div:last-child {
+        gap: 8px;
+    }
+
+    #userName {
+        font-size: 13px;
+    }
+}
+
+
+/* =====================================
+   YAPPO SETTINGS - DARK HEADER FIX
+===================================== */
+
+/* Dark header on the Settings page */
+body:has(.settings-container) .navbar,
+body:has(.settings-panel) .navbar,
+body.settings-body .navbar {
+    background: #17191b !important;
+    color: #f4f5f7 !important;
+    border-bottom: 1px solid #2a3038;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Make the Yappo logo and brand visible */
+body:has(.settings-container) .navbar .logo,
+body:has(.settings-panel) .navbar .logo,
+body.settings-body .navbar .logo,
+body:has(.settings-container) .navbar .logo h2,
+body:has(.settings-panel) .navbar .logo h2,
+body.settings-body .navbar .logo h2 {
+    color: #f4f5f7 !important;
+}
+
+/* Navigation links */
+body:has(.settings-container) .navbar a,
+body:has(.settings-panel) .navbar a,
+body.settings-body .navbar a {
+    color: #e5e7eb !important;
+}
+
+/* Back to Dashboard button */
+body:has(.settings-container) .navbar .nav-button,
+body:has(.settings-panel) .navbar .nav-button,
+body.settings-body .navbar .nav-button {
+    background: linear-gradient(110deg, #6558f5, #08b6d4);
+    color: #ffffff !important;
+    border: none;
+    border-radius: 24px;
+    padding: 14px 26px;
+}
+
+/* Keep the dark theme across the settings page */
+body.settings-body,
+body:has(.settings-container),
+body:has(.settings-panel) {
+    background: #1c1e20;
+    color: #f4f5f7;
+}
+
+/* Settings card and sidebar */
+.settings-container,
+.settings-panel {
+    background: #17191b;
+    border-color: #2a3038;
+    color: #f4f5f7;
+}
+
+/* Settings headings and account text */
+.settings-container h1,
+.settings-container h2,
+.settings-container h3,
+.settings-panel h1,
+.settings-panel h2,
+.settings-panel h3 {
+    color: #f4f5f7;
+}
+
+.settings-container p,
+.settings-panel p {
+    color: #b5bdca;
+}
+
+.navbar {
+    background: #17191b;
+    border-bottom: 1px solid #2b3038;
+    color: #f5f6fa;
+}
+
+.logo h2 {
+    color: #ffffff;
+}
+
+.navbar a {
+    color: #f5f6fa;
+}
+
+.video-box {
+    position: relative;
+    overflow: hidden;
+    background: #171819;
+    border: 1px solid #292c32;
+    border-radius: 24px;
+    min-height: 350px;
+}
+
+#localVideo {
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    background: #000;
+}
+
+.camera-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    color: #d5d9e4;
+    text-align: center;
+    font-size: 20px;
+}
+
+.camera-placeholder[hidden],
+#localVideo[hidden] {
+    display: none !important;
+}
+
+.camera-icon {
+    font-size: 48px;
+}
+
+.video-status {
+    position: absolute;
+    z-index: 2;
+    bottom: 16px;
+    left: 16px;
+    padding: 9px 16px;
+    background: #202226;
+    border: 1px solid #383c45;
+    border-radius: 24px;
+    color: #e2e5ed;
+    font-size: 14px;
 }
