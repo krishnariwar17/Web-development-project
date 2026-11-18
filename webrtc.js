@@ -11,6 +11,10 @@ export class YappoWebRTC {
         this.pendingCandidates = [];
     }
 
+    // ========================================
+    // START WEBRTC CONNECTION
+    // ========================================
+
     async start(localStream, initiator) {
         this.close();
 
@@ -20,11 +24,22 @@ export class YappoWebRTC {
             iceServers: [
                 {
                     urls: "stun:stun.l.google.com:19302"
+                },
+                {
+                    urls: "stun:stun1.l.google.com:19302"
+                },
+                {
+                    urls: "stun:stun2.l.google.com:19302"
                 }
-            ]
+            ],
+            iceCandidatePoolSize: 10
         });
 
         this.peer = peer;
+
+        console.log("WebRTC peer connection created.");
+
+        // SEND ICE CANDIDATES
 
         peer.onicecandidate = (event) => {
             if (this.peer !== peer) return;
@@ -36,15 +51,25 @@ export class YappoWebRTC {
             }
         };
 
+        // RECEIVE REMOTE VIDEO
+
         peer.ontrack = (event) => {
             if (this.peer !== peer) return;
 
             const remoteStream = event.streams[0];
 
-            if (!remoteStream) return;
+            if (!remoteStream) {
+                console.warn("Remote track has no stream.");
+                return;
+            }
 
-            this.remoteVideo.srcObject = remoteStream;
+            if (this.remoteVideo.srcObject !== remoteStream) {
+                this.remoteVideo.srcObject = remoteStream;
+            }
+
             this.remoteVideo.hidden = false;
+            this.remoteVideo.autoplay = true;
+            this.remoteVideo.playsInline = true;
 
             const placeholder =
                 document.getElementById("strangerPlaceholder");
@@ -53,24 +78,84 @@ export class YappoWebRTC {
                 placeholder.hidden = true;
             }
 
-            this.remoteVideo.play().catch((error) => {
-                console.error("Remote video playback error:", error);
+            const video = this.remoteVideo;
+
+            video.play().catch((error) => {
+                if (
+                    error.name === "AbortError" ||
+                    error.name === "NotAllowedError"
+                ) {
+                    console.warn(
+                        "Remote video playback interrupted:",
+                        error.message
+                    );
+                } else {
+                    console.error(
+                        "Remote video playback error:",
+                        error
+                    );
+                }
             });
 
             this.onStatus("Remote media received.");
         };
 
+        // CONNECTION STATUS
+
         peer.onconnectionstatechange = () => {
             if (this.peer !== peer) return;
 
-            this.onStatus(
-                "WebRTC: " + peer.connectionState
+            const state = peer.connectionState;
+
+            console.log("WebRTC connection state:", state);
+
+            if (state === "connected") {
+                this.onStatus("Video connected!");
+            } else if (state === "connecting") {
+                this.onStatus("Connecting video...");
+            } else if (state === "disconnected") {
+                this.onStatus("Video connection interrupted.");
+            } else if (state === "failed") {
+                this.onStatus("WebRTC: failed");
+
+                console.error(
+                    "WebRTC connection failed. " +
+                    "A TURN relay may be required."
+                );
+            } else if (state === "closed") {
+                this.onStatus("Video connection closed.");
+            }
+        };
+
+        // ICE CONNECTION DIAGNOSTICS
+
+        peer.oniceconnectionstatechange = () => {
+            if (this.peer !== peer) return;
+
+            console.log(
+                "ICE connection state:",
+                peer.iceConnectionState
             );
         };
 
+        peer.onicegatheringstatechange = () => {
+            if (this.peer !== peer) return;
+
+            console.log(
+                "ICE gathering state:",
+                peer.iceGatheringState
+            );
+        };
+
+        // ADD LOCAL CAMERA AND MICROPHONE
+
         localStream.getTracks().forEach((track) => {
-            peer.addTrack(track, localStream);
+            if (track.readyState === "live") {
+                peer.addTrack(track, localStream);
+            }
         });
+
+        // CREATE OFFER
 
         if (initiator) {
             const offer = await peer.createOffer();
@@ -84,81 +169,145 @@ export class YappoWebRTC {
             this.socket.emit("webrtc-offer", {
                 offer: peer.localDescription
             });
+
+            console.log("WebRTC offer sent.");
         }
     }
 
-    async handleOffer(offer) {
-        if (!this.peer) return;
+    // ========================================
+    // HANDLE OFFER
+    // ========================================
 
+    async handleOffer(offer) {
         const peer = this.peer;
 
-        await peer.setRemoteDescription(offer);
+        if (!peer || peer.signalingState === "closed") {
+            return;
+        }
 
-        if (this.peer !== peer) return;
+        try {
+            await peer.setRemoteDescription(offer);
 
-        await this.flushCandidates();
+            if (this.peer !== peer) return;
 
-        const answer = await peer.createAnswer();
+            await this.flushCandidates();
 
-        if (this.peer !== peer) return;
+            const answer = await peer.createAnswer();
 
-        await peer.setLocalDescription(answer);
+            if (this.peer !== peer) return;
 
-        if (this.peer !== peer) return;
+            await peer.setLocalDescription(answer);
 
-        this.socket.emit("webrtc-answer", {
-            answer: peer.localDescription
-        });
+            if (this.peer !== peer) return;
+
+            this.socket.emit("webrtc-answer", {
+                answer: peer.localDescription
+            });
+
+            console.log("WebRTC answer sent.");
+
+        } catch (error) {
+            if (this.peer === peer) {
+                console.error(
+                    "Error handling WebRTC offer:",
+                    error
+                );
+            }
+        }
     }
+
+    // ========================================
+    // HANDLE ANSWER
+    // ========================================
 
     async handleAnswer(answer) {
-        if (!this.peer) return;
-
         const peer = this.peer;
 
-        await peer.setRemoteDescription(answer);
+        if (!peer || peer.signalingState === "closed") {
+            return;
+        }
 
-        if (this.peer !== peer) return;
+        try {
+            await peer.setRemoteDescription(answer);
 
-        await this.flushCandidates();
+            if (this.peer !== peer) return;
+
+            await this.flushCandidates();
+
+            console.log("WebRTC answer received.");
+
+        } catch (error) {
+            if (this.peer === peer) {
+                console.error(
+                    "Error handling WebRTC answer:",
+                    error
+                );
+            }
+        }
     }
 
-    async addCandidate(candidate) {
-        if (!this.peer) return;
+    // ========================================
+    // HANDLE ICE CANDIDATES
+    // ========================================
 
-        if (!this.peer.remoteDescription) {
+    async addCandidate(candidate) {
+        const peer = this.peer;
+
+        if (!peer || !candidate) return;
+
+        if (!peer.remoteDescription) {
             this.pendingCandidates.push(candidate);
             return;
         }
 
-        await this.peer.addIceCandidate(candidate);
+        try {
+            await peer.addIceCandidate(candidate);
+        } catch (error) {
+            if (this.peer === peer) {
+                console.error(
+                    "Error adding ICE candidate:",
+                    error
+                );
+            }
+        }
     }
 
     async flushCandidates() {
-        if (!this.peer) return;
+        const peer = this.peer;
+
+        if (!peer || !peer.remoteDescription) {
+            return;
+        }
 
         const candidates = this.pendingCandidates;
         this.pendingCandidates = [];
 
         for (const candidate of candidates) {
-            await this.peer.addIceCandidate(candidate);
+            if (this.peer !== peer) return;
+
+            try {
+                await peer.addIceCandidate(candidate);
+            } catch (error) {
+                console.error(
+                    "Error flushing ICE candidate:",
+                    error
+                );
+            }
         }
     }
 
     // ========================================
-    // CAMERA ON / OFF DURING CALL
+    // CAMERA ON / OFF
     // ========================================
 
     setCameraEnabled(enabled) {
         if (!this.stream) return false;
 
-        const videoTracks = this.stream.getVideoTracks();
+        const tracks = this.stream.getVideoTracks();
 
-        if (videoTracks.length === 0) {
-            return false;
-        }
+        if (tracks.length === 0) return false;
 
-        videoTracks.forEach((track) => {
+        tracks.forEach((track) => {
             if (track.readyState === "live") {
                 track.enabled = enabled;
             }
@@ -168,19 +317,17 @@ export class YappoWebRTC {
     }
 
     // ========================================
-    // MICROPHONE ON / OFF DURING CALL
+    // MICROPHONE ON / OFF
     // ========================================
 
     setMicrophoneEnabled(enabled) {
         if (!this.stream) return false;
 
-        const audioTracks = this.stream.getAudioTracks();
+        const tracks = this.stream.getAudioTracks();
 
-        if (audioTracks.length === 0) {
-            return false;
-        }
+        if (tracks.length === 0) return false;
 
-        audioTracks.forEach((track) => {
+        tracks.forEach((track) => {
             if (track.readyState === "live") {
                 track.enabled = enabled;
             }
@@ -194,13 +341,18 @@ export class YappoWebRTC {
     // ========================================
 
     close() {
-        if (this.peer) {
-            this.peer.onicecandidate = null;
-            this.peer.ontrack = null;
-            this.peer.onconnectionstatechange = null;
+        const peer = this.peer;
 
-            this.peer.close();
-            this.peer = null;
+        this.peer = null;
+
+        if (peer) {
+            peer.onicecandidate = null;
+            peer.ontrack = null;
+            peer.onconnectionstatechange = null;
+            peer.oniceconnectionstatechange = null;
+            peer.onicegatheringstatechange = null;
+
+            peer.close();
         }
 
         this.stream = null;
