@@ -17,13 +17,19 @@ const setupSocket = require("./socket");
 const app = express();
 const server = http.createServer(app);
 
+
+
 const io = new Server(server, {
     cors: {
-        origin: "*"
+        origin: [
+            "http://127.0.0.1:5501",
+            "http://localhost:5501",
+            "https://YOUR-SITE.netlify.app"
+        ],
+        methods: ["GET", "POST"]
     }
 });
 
-const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());

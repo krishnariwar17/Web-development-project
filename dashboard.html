@@ -387,8 +387,12 @@
 
     <!-- SOCKET.IO CLIENT -->
 
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-
+<script src="./config.js"></script>
+<script id="socketIoScript"></script>
+<script>
+    const socketScript = document.getElementById("socketIoScript");
+    socketScript.src = window.YAPPO_BACKEND_URL + "/socket.io/socket.io.js";
+</script>
 
     <!-- FIREBASE + WEBRTC + DASHBOARD -->
 

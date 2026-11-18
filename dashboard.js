@@ -290,10 +290,13 @@ function connectMatchmaking() {
         return;
     }
 
-    socket = window.io("http://localhost:3000", {
-        reconnection: true,
-        reconnectionAttempts: Infinity
-    });
+   socket = window.io(window.YAPPO_BACKEND_URL, {
+    transports: ["websocket", "polling"],
+    reconnection: true,
+    reconnectionAttempts: Infinity,
+    reconnectionDelay: 1000
+}); 
+
 
     webRTC = new YappoWebRTC(
         socket,
