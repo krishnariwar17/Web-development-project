@@ -47,9 +47,15 @@ app.use(express.json());
 
 // Socket.IO configuration
 const io = new Server(server, {
-    cors: corsOptions
+    cors: {
+        origin: [
+            "http://127.0.0.1:5501",
+            "http://localhost:5501",
+            "https://web-development-project-2syk.netlify.app"
+        ],
+        methods: ["GET", "POST"]
+    }
 });
-
 // Test route
 app.get("/", (req, res) => {
     res.send("Yappo Backend Server is Running!");

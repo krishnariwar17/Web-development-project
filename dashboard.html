@@ -385,14 +385,17 @@
     </footer>
 
 
+    <!-- LIVE BACKEND CONFIGURATION -->
+
+    <script src="./config.js"></script>
+
+
     <!-- SOCKET.IO CLIENT -->
 
-<script src="./config.js"></script>
-<script id="socketIoScript"></script>
-<script>
-    const socketScript = document.getElementById("socketIoScript");
-    socketScript.src = window.YAPPO_BACKEND_URL + "/socket.io/socket.io.js";
-</script>
+    <script
+        src="https://cdn.socket.io/4.8.1/socket.io.min.js">
+    </script>
+
 
     <!-- FIREBASE + WEBRTC + DASHBOARD -->
 
